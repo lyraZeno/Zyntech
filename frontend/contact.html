@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact Us - Zyntech Store</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body style="overflow-y:auto; height:auto;">
+
+    <header class="navbar">
+        <div class="logo">
+            <a href="index.html" style="display:flex; align-items:center;">
+               <img src="img/zynteck.png" alt="Zyntech Logo" class="logo-img" width="100" height="auto">
+               <img src="img/zyntechnametp.png" alt="Zyntech Logo" class="logo-img" width="110" height="auto">
+            </a>
+        </div>
+        <nav class="nav-links">
+            <a href="index.html"><i class="fa-solid fa-house"></i> Home </a>
+            <a href="index.html#products"><i class="fa-solid fa-layer-group"></i> Categories</a>
+            <a href="javascript:void(0)" onclick="toggleTrackModal()"><i class="fa-solid fa-truck-fast"></i> Track Order</a>
+            <a href="about.html"><i class="fa-solid fa-info-circle"></i> About us</a>
+            <a href="contact.html" class="active"><i class="fa-solid fa-envelope"></i> Contact us</a>
+        </nav>
+        <div class="nav-actions">
+            <a href="javascript:void(0)" onclick="toggleCart()" class="icon-btn cart-btn">
+                <i class="fa-solid fa-cart-shopping"></i>
+                <span class="badge" id="cartCount">0</span>
+            </a>
+            <a href="login.html" class="login-btn" id="guestLoginBtn"><i class="fa-solid fa-right-to-bracket"></i> Login</a>
+            <div class="nav-dropdown user-dropdown" id="userMenu">
+                <button class="user-pill-btn">
+                    <i class="fa-solid fa-circle-user"></i>
+                    <span id="navUserName">Account</span>
+                </button>
+                <div class="dropdown-menu dropdown-menu-right">
+                    <div class="user-info-header">
+                        <strong id="userDisplayName"></strong>
+                        <span class="role-badge">CUSTOMER</span>
+                    </div>
+                    <hr>
+                    <a href="profile.html"><i class="fa-solid fa-user"></i> My Profile</a>
+                    <a href="profile.html#orders"><i class="fa-solid fa-box"></i> Purchase History</a>
+                    <a href="profile.html#tracking"><i class="fa-solid fa-truck-fast"></i> Order Tracking</a>
+                    <a href="cart.html"><i class="fa-solid fa-cart-shopping"></i> Shopping Cart</a>
+                    <hr>
+                    <a href="javascript:void(0)" onclick="logout()" class="logout-link"><i class="fa-solid fa-right-from-bracket"></i> Sign Out</a>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <div class="page-hero">
+        <h1>Get In Touch</h1>
+        <p>Questions about compatibility, orders, or delivery? We're here to help.</p>
+    </div>
+
+    <div class="page-wrapper">
+        <div class="two-col">
+            <div class="form-card">
+                <div class="success-banner" id="contactSuccess"><i class="fa-solid fa-circle-check"></i> Thanks! Your message has been sent — we'll get back to you shortly.</div>
+                <form id="contactForm" onsubmit="return handleContactSubmit(event)" novalidate>
+                    <div class="form-group">
+                        <label>Full Name</label>
+                        <input type="text" id="contactName" required minlength="2">
+                        <p class="field-error" id="errContactName">Please enter your name.</p>
+                    </div>
+                    <div class="form-group">
+                        <label>Email Address</label>
+                        <input type="email" id="contactEmail" required>
+                        <p class="field-error" id="errContactEmail">Please enter a valid email address.</p>
+                    </div>
+                    <div class="form-group">
+                        <label>Subject</label>
+                        <select id="contactSubject">
+                            <option value="order">Order / Delivery Question</option>
+                            <option value="compatibility">Compatibility / Build Advice</option>
+                            <option value="returns">Returns &amp; Warranty</option>
+                            <option value="other">Other</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>Message</label>
+                        <textarea id="contactMessage" required minlength="10" placeholder="Tell us how we can help..."></textarea>
+                        <p class="field-error" id="errContactMessage">Message must be at least 10 characters.</p>
+                    </div>
+                    <button type="submit" class="submit-btn"><i class="fa-solid fa-paper-plane"></i> Send Message</button>
+                </form>
+            </div>
+
+            <div class="info-card">
+                <div class="info-row">
+                    <i class="fa-solid fa-location-dot"></i>
+                    <div><h5>Store Address</h5><p>142 Hardware Lane, Colombo 03, Sri Lanka</p></div>
+                </div>
+                <div class="info-row">
+                    <i class="fa-solid fa-phone"></i>
+                    <div><h5>Phone</h5><p>+94 11 234 5678</p></div>
+                </div>
+                <div class="info-row">
+                    <i class="fa-solid fa-envelope"></i>
+                    <div><h5>Email</h5><p>support@zyntech.lk</p></div>
+                </div>
+                <div class="info-row" style="margin-bottom:0;">
+                    <i class="fa-solid fa-clock"></i>
+                    <div><h5>Support Hours</h5><p>Mon – Sat, 9:00 AM – 7:00 PM</p></div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Shared Track Order Modal -->
+    <div class="track-modal-overlay" id="trackModalOverlay" onclick="toggleTrackModal()" aria-hidden="true"></div>
+    <section class="track-modal" id="trackModal" role="dialog" aria-modal="true" aria-labelledby="trackModalTitle" aria-hidden="true">
+        <div class="modal-header">
+            <h3 id="trackModalTitle"><i class="fa-solid fa-truck-fast"></i> Track Shipment</h3>
+            <button class="close-modal-btn" type="button" onclick="toggleTrackModal()" aria-label="Close tracking dialog">&times;</button>
+        </div>
+        <div class="modal-body">
+            <p>Enter your Order ID to track shipment:</p>
+            <form class="track-form" onsubmit="return checkOrderStatus(event)">
+                <label class="sr-only" for="trackInput">Order reference ID</label>
+                <input type="text" id="trackInput" placeholder="e.g. ZYN-8821" autocomplete="off" required>
+                <button type="submit">Track</button>
+            </form>
+            <div id="trackResult" class="track-result" aria-live="polite"></div>
+        </div>
+    </section>
+    <!-- Shared Footer -->
+    <footer class="site-footer">
+        <div class="footer-grid">
+            <div class="footer-col">
+                <img src="img/zyntechnametp.png" alt="Zyntech" width="120" style="margin-bottom:12px;">
+                <p>Zyntech is a hardware store built by PC enthusiasts, for enthusiasts — helping you build compatible, reliable systems every time.</p>
+            </div>
+            <div class="footer-col">
+                <h4>Shop</h4>
+                <ul>
+                    <li><a href="index.html#products">All Hardware</a></li>
+                    <li><a href="cart.html">Shopping Cart</a></li>
+                    <li><a href="javascript:void(0)" onclick="toggleTrackModal()">Track Order</a></li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h4>Company</h4>
+                <ul>
+                    <li><a href="about.html">About Us</a></li>
+                    <li><a href="contact.html">Contact Us</a></li>
+                    <li><a href="index.html#faq">FAQ</a></li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h4>Legal</h4>
+                <ul>
+                    <li><a href="privacy.html">Privacy Policy</a></li>
+                    <li><a href="terms.html">Terms &amp; Conditions</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-bottom">&copy; 2026 Zyntech Hardware. All rights reserved.</div>
+    </footer>
+
+    <script src="products.js"></script>
+    <script src="script.js"></script>
+    <script>
+        function showFieldError(id, show) {
+            const el = document.getElementById(id);
+            if (el) el.classList.toggle('active', show);
+        }
+
+        function handleContactSubmit(event) {
+            event.preventDefault();
+            let valid = true;
+
+            const name = document.getElementById('contactName').value.trim();
+            const email = document.getElementById('contactEmail').value.trim();
+            const message = document.getElementById('contactMessage').value.trim();
+            const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+            showFieldError('errContactName', name.length < 2);
+            if (name.length < 2) valid = false;
+
+            showFieldError('errContactEmail', !emailPattern.test(email));
+            if (!emailPattern.test(email)) valid = false;
+
+            showFieldError('errContactMessage', message.length < 10);
+            if (message.length < 10) valid = false;
+
+            if (!valid) return false;
+
+            document.getElementById('contactSuccess').classList.add('active');
+            document.getElementById('contactForm').reset();
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+            return false;
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Privacy Policy - Zyntech Store</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body style="overflow-y:auto; height:auto;">
+
+    <header class="navbar">
+        <div class="logo">
+            <a href="index.html" style="display:flex; align-items:center;">
+               <img src="img/zynteck.png" alt="Zyntech Logo" class="logo-img" width="100" height="auto">
+               <img src="img/zyntechnametp.png" alt="Zyntech Logo" class="logo-img" width="110" height="auto">
+            </a>
+        </div>
+        <nav class="nav-links">
+            <a href="index.html"><i class="fa-solid fa-house"></i> Home </a>
+            <a href="index.html#products"><i class="fa-solid fa-layer-group"></i> Categories</a>
+            <a href="javascript:void(0)" onclick="toggleTrackModal()"><i class="fa-solid fa-truck-fast"></i> Track Order</a>
+            <a href="about.html"><i class="fa-solid fa-info-circle"></i> About us</a>
+            <a href="contact.html"><i class="fa-solid fa-envelope"></i> Contact us</a>
+        </nav>
+        <div class="nav-actions">
+            <a href="javascript:void(0)" onclick="toggleCart()" class="icon-btn cart-btn">
+                <i class="fa-solid fa-cart-shopping"></i>
+                <span class="badge" id="cartCount">0</span>
+            </a>
+            <a href="login.html" class="login-btn" id="guestLoginBtn"><i class="fa-solid fa-right-to-bracket"></i> Login</a>
+            <div class="nav-dropdown user-dropdown" id="userMenu">
+                <button class="user-pill-btn">
+                    <i class="fa-solid fa-circle-user"></i>
+                    <span id="navUserName">Account</span>
+                </button>
+                <div class="dropdown-menu dropdown-menu-right">
+                    <div class="user-info-header">
+                        <strong id="userDisplayName"></strong>
+                        <span class="role-badge">CUSTOMER</span>
+                    </div>
+                    <hr>
+                    <a href="profile.html"><i class="fa-solid fa-user"></i> My Profile</a>
+                    <a href="profile.html#orders"><i class="fa-solid fa-box"></i> Purchase History</a>
+                    <a href="profile.html#tracking"><i class="fa-solid fa-truck-fast"></i> Order Tracking</a>
+                    <a href="cart.html"><i class="fa-solid fa-cart-shopping"></i> Shopping Cart</a>
+                    <hr>
+                    <a href="javascript:void(0)" onclick="logout()" class="logout-link"><i class="fa-solid fa-right-from-bracket"></i> Sign Out</a>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <div class="page-hero">
+        <h1>Privacy Policy</h1>
+    </div>
+
+    <div class="page-wrapper">
+        <div class="legal-content">
+            <p class="legal-updated">Last updated: August 2026</p>
+
+            <h3>1. Information We Collect</h3>
+            <p>When you register or place an order on Zyntech, we collect information such as your name, email address, phone number, delivery address, and order details. If you choose to pay by card, payment details are collected only to confirm your order and are not stored on our servers.</p>
+
+            <h3>2. How We Use Your Information</h3>
+            <ul>
+                <li>To create and manage your account</li>
+                <li>To process and deliver your orders</li>
+                <li>To provide order tracking and customer support</li>
+                <li>To communicate important updates about your purchases</li>
+            </ul>
+
+            <h3>3. Data Storage</h3>
+            <p>This is a demonstration front-end application. Account, cart and order data are stored locally in your browser's storage and are not transmitted to or stored on any external server.</p>
+
+            <h3>4. Cookies</h3>
+            <p>We use local browser storage to keep you signed in and to remember your cart between visits. We do not use third-party tracking cookies.</p>
+
+            <h3>5. Your Rights</h3>
+            <p>You may update your profile details at any time from your Account page, or request that your data be removed by contacting our support team via the Contact Us page.</p>
+
+            <h3>6. Contact Us</h3>
+            <p>If you have any questions about this Privacy Policy, please reach out via our <a href="contact.html" style="color:#0284c7;">Contact page</a>.</p>
+        </div>
+    </div>
+    <!-- Shared Track Order Modal -->
+    <div class="track-modal-overlay" id="trackModalOverlay" onclick="toggleTrackModal()" aria-hidden="true"></div>
+    <section class="track-modal" id="trackModal" role="dialog" aria-modal="true" aria-labelledby="trackModalTitle" aria-hidden="true">
+        <div class="modal-header">
+            <h3 id="trackModalTitle"><i class="fa-solid fa-truck-fast"></i> Track Shipment</h3>
+            <button class="close-modal-btn" type="button" onclick="toggleTrackModal()" aria-label="Close tracking dialog">&times;</button>
+        </div>
+        <div class="modal-body">
+            <p>Enter your Order ID to track shipment:</p>
+            <form class="track-form" onsubmit="return checkOrderStatus(event)">
+                <label class="sr-only" for="trackInput">Order reference ID</label>
+                <input type="text" id="trackInput" placeholder="e.g. ZYN-8821" autocomplete="off" required>
+                <button type="submit">Track</button>
+            </form>
+            <div id="trackResult" class="track-result" aria-live="polite"></div>
+        </div>
+    </section>
+
+    <!-- Shared Footer -->
+    <footer class="site-footer">
+        <div class="footer-grid">
+            <div class="footer-col">
+                <img src="img/zyntechnametp.png" alt="Zyntech" width="120" style="margin-bottom:12px;">
+                <p>Zyntech is a hardware store built by PC enthusiasts, for enthusiasts — helping you build compatible, reliable systems every time.</p>
+            </div>
+            <div class="footer-col">
+                <h4>Shop</h4>
+                <ul>
+                    <li><a href="index.html#products">All Hardware</a></li>
+                    <li><a href="cart.html">Shopping Cart</a></li>
+                    <li><a href="javascript:void(0)" onclick="toggleTrackModal()">Track Order</a></li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h4>Company</h4>
+                <ul>
+                    <li><a href="about.html">About Us</a></li>
+                    <li><a href="contact.html">Contact Us</a></li>
+                    <li><a href="index.html#faq">FAQ</a></li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h4>Legal</h4>
+                <ul>
+                    <li><a href="privacy.html">Privacy Policy</a></li>
+                    <li><a href="terms.html">Terms &amp; Conditions</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-bottom">&copy; 2026 Zyntech Hardware. All rights reserved.</div>
+    </footer>
+
+    <script src="products.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>

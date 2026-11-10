@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About Us - Zyntech Store</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body style="overflow-y:auto; height:auto;">
+
+    <header class="navbar">
+        <div class="logo">
+            <a href="index.html" style="display:flex; align-items:center;">
+               <img src="img/zynteck.png" alt="Zyntech Logo" class="logo-img" width="100" height="auto">
+               <img src="img/zyntechnametp.png" alt="Zyntech Logo" class="logo-img" width="110" height="auto">
+            </a>
+        </div>
+        <nav class="nav-links">
+            <a href="index.html"><i class="fa-solid fa-house"></i> Home </a>
+            <a href="index.html#products"><i class="fa-solid fa-layer-group"></i> Categories</a>
+            <a href="javascript:void(0)" onclick="toggleTrackModal()"><i class="fa-solid fa-truck-fast"></i> Track Order</a>
+            <a href="about.html" class="active"><i class="fa-solid fa-info-circle"></i> About us</a>
+            <a href="contact.html"><i class="fa-solid fa-envelope"></i> Contact us</a>
+        </nav>
+        <div class="nav-actions">
+            <a href="javascript:void(0)" onclick="toggleCart()" class="icon-btn cart-btn">
+                <i class="fa-solid fa-cart-shopping"></i>
+                <span class="badge" id="cartCount">0</span>
+            </a>
+            <a href="login.html" class="login-btn" id="guestLoginBtn"><i class="fa-solid fa-right-to-bracket"></i> Login</a>
+            <div class="nav-dropdown user-dropdown" id="userMenu">
+                <button class="user-pill-btn">
+                    <i class="fa-solid fa-circle-user"></i>
+                    <span id="navUserName">Account</span>
+                </button>
+                <div class="dropdown-menu dropdown-menu-right">
+                    <div class="user-info-header">
+                        <strong id="userDisplayName"></strong>
+                        <span class="role-badge">CUSTOMER</span>
+                    </div>
+                    <hr>
+                    <a href="profile.html"><i class="fa-solid fa-user"></i> My Profile</a>
+                    <a href="profile.html#orders"><i class="fa-solid fa-box"></i> Purchase History</a>
+                    <a href="profile.html#tracking"><i class="fa-solid fa-truck-fast"></i> Order Tracking</a>
+                    <a href="cart.html"><i class="fa-solid fa-cart-shopping"></i> Shopping Cart</a>
+                    <hr>
+                    <a href="javascript:void(0)" onclick="logout()" class="logout-link"><i class="fa-solid fa-right-from-bracket"></i> Sign Out</a>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <div class="page-hero">
+        <h1>About ZYNTECH</h1>
+        <p>Built by PC enthusiasts, for enthusiasts.</p>
+    </div>
+
+    <div class="page-wrapper">
+        <div class="two-col">
+            <div class="info-card">
+                <h3 style="font-size:16px; color:#0f172a; margin-bottom:14px;">Our Story</h3>
+                <p style="font-size:13px; color:#475569; line-height:1.8; margin-bottom:14px;">
+                    ZYNTECH started with a simple frustration every PC builder knows too well — ordering parts online and hoping they actually fit together.
+                    We built our Real-Time Compatibility Engine to take that guesswork out of the equation, checking socket types, RAM standards, and power
+                    requirements before a single order ships.
+                </p>
+                <p style="font-size:13px; color:#475569; line-height:1.8;">
+                    Today, we're a hardware store built by enthusiasts, for enthusiasts, committed to helping first-time builders and veterans alike put
+                    together systems that just work — with fast, trackable island-wide delivery and real hardware knowledge behind every recommendation.
+                </p>
+            </div>
+            <div class="info-card">
+                <div class="info-row">
+                    <i class="fa-solid fa-shield-halved"></i>
+                    <div><h5>Verified Compatibility</h5><p>Every build is checked automatically before checkout.</p></div>
+                </div>
+                <div class="info-row">
+                    <i class="fa-solid fa-truck-fast"></i>
+                    <div><h5>Island-Wide Delivery</h5><p>Fast, trackable shipping to every corner of the island.</p></div>
+                </div>
+                <div class="info-row">
+                    <i class="fa-solid fa-headset"></i>
+                    <div><h5>Built By Enthusiasts</h5><p>Real hardware knowledge, real support, real people.</p></div>
+                </div>
+                <div class="info-row" style="margin-bottom:0;">
+                    <i class="fa-solid fa-envelope"></i>
+                    <div><h5>Want to reach us?</h5><p><a href="contact.html" style="color:#0284c7;">Visit our Contact page &rarr;</a></p></div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Shared Track Order Modal -->
+    <div class="track-modal-overlay" id="trackModalOverlay" onclick="toggleTrackModal()" aria-hidden="true"></div>
+    <section class="track-modal" id="trackModal" role="dialog" aria-modal="true" aria-labelledby="trackModalTitle" aria-hidden="true">
+        <div class="modal-header">
+            <h3 id="trackModalTitle"><i class="fa-solid fa-truck-fast"></i> Track Shipment</h3>
+            <button class="close-modal-btn" type="button" onclick="toggleTrackModal()" aria-label="Close tracking dialog">&times;</button>
+        </div>
+        <div class="modal-body">
+            <p>Enter your Order ID to track shipment:</p>
+            <form class="track-form" onsubmit="return checkOrderStatus(event)">
+                <label class="sr-only" for="trackInput">Order reference ID</label>
+                <input type="text" id="trackInput" placeholder="e.g. ZYN-8821" autocomplete="off" required>
+                <button type="submit">Track</button>
+            </form>
+            <div id="trackResult" class="track-result" aria-live="polite"></div>
+        </div>
+    </section>
+    <!-- Shared Footer -->
+    <footer class="site-footer">
+        <div class="footer-grid">
+            <div class="footer-col">
+                <img src="img/zyntechnametp.png" alt="Zyntech" width="120" style="margin-bottom:12px;">
+                <p>Zyntech is a hardware store built by PC enthusiasts, for enthusiasts — helping you build compatible, reliable systems every time.</p>
+            </div>
+            <div class="footer-col">
+                <h4>Shop</h4>
+                <ul>
+                    <li><a href="index.html#products">All Hardware</a></li>
+                    <li><a href="cart.html">Shopping Cart</a></li>
+                    <li><a href="javascript:void(0)" onclick="toggleTrackModal()">Track Order</a></li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h4>Company</h4>
+                <ul>
+                    <li><a href="about.html">About Us</a></li>
+                    <li><a href="contact.html">Contact Us</a></li>
+                    <li><a href="index.html#faq">FAQ</a></li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h4>Legal</h4>
+                <ul>
+                    <li><a href="privacy.html">Privacy Policy</a></li>
+                    <li><a href="terms.html">Terms &amp; Conditions</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-bottom">&copy; 2026 Zyntech Hardware. All rights reserved.</div>
+    </footer>
+
+    <script src="products.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>

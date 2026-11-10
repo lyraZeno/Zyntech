@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Account - Zyntech Store</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body style="overflow-y:auto; height:auto;">
+
+    <header class="navbar">
+        <div class="logo">
+            <a href="index.html" style="display:flex; align-items:center;">
+               <img src="img/zynteck.png" alt="Zyntech Logo" class="logo-img" width="100" height="auto">
+               <img src="img/zyntechnametp.png" alt="Zyntech Logo" class="logo-img" width="110" height="auto">
+            </a>
+        </div>
+        <nav class="nav-links">
+            <a href="index.html"><i class="fa-solid fa-house"></i> Home </a>
+            <a href="index.html#products"><i class="fa-solid fa-layer-group"></i> Categories</a>
+            <a href="javascript:void(0)" onclick="toggleTrackModal()"><i class="fa-solid fa-truck-fast"></i> Track Order</a>
+            <a href="about.html"><i class="fa-solid fa-info-circle"></i> About us</a>
+            <a href="contact.html"><i class="fa-solid fa-envelope"></i> Contact us</a>
+        </nav>
+        <div class="nav-actions">
+            <a href="javascript:void(0)" onclick="toggleCart()" class="icon-btn cart-btn">
+                <i class="fa-solid fa-cart-shopping"></i>
+                <span class="badge" id="cartCount">0</span>
+            </a>
+            <a href="login.html" class="login-btn" id="guestLoginBtn"><i class="fa-solid fa-right-to-bracket"></i> Login</a>
+            <div class="nav-dropdown user-dropdown" id="userMenu">
+                <button class="user-pill-btn">
+                    <i class="fa-solid fa-circle-user"></i>
+                    <span id="navUserName">Account</span>
+                </button>
+                <div class="dropdown-menu dropdown-menu-right">
+                    <div class="user-info-header">
+                        <strong id="userDisplayName"></strong>
+                        <span class="role-badge">CUSTOMER</span>
+                    </div>
+                    <hr>
+                    <a href="profile.html"><i class="fa-solid fa-user"></i> My Profile</a>
+                    <a href="profile.html#orders"><i class="fa-solid fa-box"></i> Purchase History</a>
+                    <a href="profile.html#tracking"><i class="fa-solid fa-truck-fast"></i> Order Tracking</a>
+                    <a href="cart.html"><i class="fa-solid fa-cart-shopping"></i> Shopping Cart</a>
+                    <hr>
+                    <a href="javascript:void(0)" onclick="logout()" class="logout-link"><i class="fa-solid fa-right-from-bracket"></i> Sign Out</a>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <div class="page-hero">
+        <h1>My Account</h1>
+        <p>Manage your profile, view your purchase history and track your orders.</p>
+    </div>
+
+    <div class="profile-wrapper">
+        <!-- Side Nav -->
+        <div class="profile-side">
+            <div class="profile-avatar" id="profileAvatarInitial">Z</div>
+            <h4 id="sideProfileName">—</h4>
+            <p id="sideProfileEmail">—</p>
+            <ul class="profile-tabs">
+                <li><a href="javascript:void(0)" class="tab-link active" data-tab="profile" onclick="showProfileTab('profile')"><i class="fa-solid fa-id-card"></i> My Profile</a></li>
+                <li><a href="javascript:void(0)" class="tab-link" data-tab="orders" onclick="showProfileTab('orders')"><i class="fa-solid fa-box"></i> Purchase History</a></li>
+                <li><a href="javascript:void(0)" class="tab-link" data-tab="tracking" onclick="showProfileTab('tracking')"><i class="fa-solid fa-truck-fast"></i> Order Tracking</a></li>
+                <li><a href="cart.html"><i class="fa-solid fa-cart-shopping"></i> Shopping Cart</a></li>
+                <li><a href="javascript:void(0)" class="logout-link" onclick="logout()"><i class="fa-solid fa-right-from-bracket"></i> Sign Out</a></li>
+            </ul>
+        </div>
+
+        <!-- Panels -->
+        <div>
+            <!-- My Profile Panel -->
+            <div class="profile-panel active" id="panel-profile">
+                <h3><i class="fa-solid fa-id-card"></i> My Profile</h3>
+                <div class="success-banner" id="profileSuccess"><i class="fa-solid fa-circle-check"></i> Profile updated successfully.</div>
+                <form id="profileForm" onsubmit="return handleProfileUpdate(event)" novalidate>
+                    <div class="profile-field-grid">
+                        <div class="form-group">
+                            <label>Full Name</label>
+                            <input type="text" id="profName" required minlength="2">
+                            <p class="field-error" id="errProfName">Please enter a valid name.</p>
+                        </div>
+                        <div class="form-group">
+                            <label>Email Address</label>
+                            <input type="email" id="profEmail" disabled style="background:#f1f5f9;">
+                        </div>
+                        <div class="form-group">
+                            <label>Phone Number</label>
+                            <input type="tel" id="profPhone" required pattern="[0-9+\s-]{7,15}">
+                            <p class="field-error" id="errProfPhone">Please enter a valid phone number.</p>
+                        </div>
+                        <div class="form-group">
+                            <label>Delivery Address</label>
+                            <input type="text" id="profAddress" required minlength="5">
+                            <p class="field-error" id="errProfAddress">Please enter a valid address.</p>
+                        </div>
+                    </div>
+                    <button type="submit" class="submit-btn" style="margin-top:10px;"><i class="fa-solid fa-floppy-disk"></i> Save Changes</button>
+                </form>
+            </div>
+
+            <!-- Purchase History Panel -->
+            <div class="profile-panel" id="panel-orders">
+                <h3><i class="fa-solid fa-box"></i> Purchase History</h3>
+                <div id="ordersList"></div>
+            </div>
+
+            <!-- Order Tracking Panel -->
+            <div class="profile-panel" id="panel-tracking">
+                <h3><i class="fa-solid fa-truck-fast"></i> Order Tracking</h3>
+                <div class="track-page-form">
+                    <input type="text" id="profileTrackInput" placeholder="Enter Order Ref ID (e.g. ZYN-8821)">
+                    <button onclick="trackOrderInProfile()">Track</button>
+                </div>
+                <div id="profileTrackResult"></div>
+                <hr style="border:none; border-top:1px solid #f1f5f9; margin:20px 0;">
+                <p style="font-size:12px; color:#94a3b8; margin-bottom:10px;">Or pick a recent order to track instantly:</p>
+                <div id="trackShortcutList"></div>
+            </div>
+        </div>
+    </div>
+    <!-- Shared Track Order Modal -->
+    <div class="track-modal-overlay" id="trackModalOverlay" onclick="toggleTrackModal()" aria-hidden="true"></div>
+    <section class="track-modal" id="trackModal" role="dialog" aria-modal="true" aria-labelledby="trackModalTitle" aria-hidden="true">
+        <div class="modal-header">
+            <h3 id="trackModalTitle"><i class="fa-solid fa-truck-fast"></i> Track Shipment</h3>
+            <button class="close-modal-btn" type="button" onclick="toggleTrackModal()" aria-label="Close tracking dialog">&times;</button>
+        </div>
+        <div class="modal-body">
+            <p>Enter your Order ID to track shipment:</p>
+            <form class="track-form" onsubmit="return checkOrderStatus(event)">
+                <label class="sr-only" for="trackInput">Order reference ID</label>
+                <input type="text" id="trackInput" placeholder="e.g. ZYN-8821" autocomplete="off" required>
+                <button type="submit">Track</button>
+            </form>
+            <div id="trackResult" class="track-result" aria-live="polite"></div>
+        </div>
+    </section>
+
+    <!-- Shared Footer -->
+    <footer class="site-footer">
+        <div class="footer-grid">
+            <div class="footer-col">
+                <img src="img/zyntechnametp.png" alt="Zyntech" width="120" style="margin-bottom:12px;">
+                <p>Zyntech is a hardware store built by PC enthusiasts, for enthusiasts — helping you build compatible, reliable systems every time.</p>
+            </div>
+            <div class="footer-col">
+                <h4>Shop</h4>
+                <ul>
+                    <li><a href="index.html#products">All Hardware</a></li>
+                    <li><a href="cart.html">Shopping Cart</a></li>
+                    <li><a href="javascript:void(0)" onclick="toggleTrackModal()">Track Order</a></li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h4>Company</h4>
+                <ul>
+                    <li><a href="about.html">About Us</a></li>
+                    <li><a href="contact.html">Contact Us</a></li>
+                    <li><a href="index.html#faq">FAQ</a></li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h4>Legal</h4>
+                <ul>
+                    <li><a href="privacy.html">Privacy Policy</a></li>
+                    <li><a href="terms.html">Terms &amp; Conditions</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-bottom">&copy; 2026 Zyntech Hardware. All rights reserved.</div>
+    </footer>
+
+    <script src="products.js"></script>
+    <script src="script.js"></script>
+    <script>
+      (function() {
+        if (!requireAuth()) return;
+        const user = getCurrentUser();
+
+        document.getElementById('profileAvatarInitial').innerText = user.name.charAt(0).toUpperCase();
+        document.getElementById('sideProfileName').innerText = user.name;
+        document.getElementById('sideProfileEmail').innerText = user.email;
+        document.getElementById('profName').value = user.name;
+        document.getElementById('profEmail').value = user.email;
+        document.getElementById('profPhone').value = user.phone || '';
+        document.getElementById('profAddress').value = user.address || '';
+
+        window.showProfileTab = function(tab) {
+            document.querySelectorAll('.profile-panel').forEach(p => p.classList.remove('active'));
+            document.querySelectorAll('.tab-link').forEach(t => t.classList.remove('active'));
+            document.getElementById('panel-' + tab).classList.add('active');
+            const link = document.querySelector(`.tab-link[data-tab="${tab}"]`);
+            if (link) link.classList.add('active');
+        };
+
+        function showFieldError(id, show) {
+            const el = document.getElementById(id);
+            if (el) el.classList.toggle('active', show);
+        }
+
+        window.handleProfileUpdate = function(event) {
+            event.preventDefault();
+            let valid = true;
+            const name = document.getElementById('profName').value.trim();
+            const phone = document.getElementById('profPhone').value.trim();
+            const address = document.getElementById('profAddress').value.trim();
+            const phonePattern = /^[0-9+\s-]{7,15}$/;
+
+            showFieldError('errProfName', name.length < 2);
+            if (name.length < 2) valid = false;
+            showFieldError('errProfPhone', !phonePattern.test(phone));
+            if (!phonePattern.test(phone)) valid = false;
+            showFieldError('errProfAddress', address.length < 5);
+            if (address.length < 5) valid = false;
+
+            if (!valid) return false;
+
+            const updatedUser = { ...user, name, phone, address };
+            localStorage.setItem(user.email, JSON.stringify(updatedUser));
+            localStorage.setItem('currentUser', JSON.stringify(updatedUser));
+
+            document.getElementById('sideProfileName').innerText = name;
+            document.getElementById('profileAvatarInitial').innerText = name.charAt(0).toUpperCase();
+            document.getElementById('profileSuccess').classList.add('active');
+            refreshAuthUI();
+            return false;
+        };
+
+        // Purchase history
+        function renderOrders() {
+            const orders = getOrdersForCurrentUser();
+            const list = document.getElementById('ordersList');
+            const shortcuts = document.getElementById('trackShortcutList');
+
+            if (orders.length === 0) {
+                list.innerHTML = `
+                    <div class="empty-state">
+                        <i class="fa-solid fa-box-open"></i>
+                        <p>You haven't placed any orders yet.</p>
+                        <a href="index.html#products">Start Shopping</a>
+                    </div>`;
+                shortcuts.innerHTML = '<p style="font-size:12px; color:#94a3b8;">No orders yet.</p>';
+                return;
+            }
+
+            list.innerHTML = orders.map(o => `
+                <div class="order-history-item">
+                    <div class="oh-top">
+                        <strong>${o.id}</strong>
+                        <span class="status-pill">${o.status}</span>
+                    </div>
+                    <div class="oh-items">
+                        ${o.items.map(i => `${i.title} &times; ${i.qty}`).join('<br>')}
+                        <br><b>Total:</b> LKR ${o.total.toLocaleString()} &middot; <b>Payment:</b> ${o.paymentMethod}
+                        <br><small>Placed on ${new Date(o.date).toLocaleString()}</small>
+                    </div>
+                </div>
+            `).join('');
+
+            shortcuts.innerHTML = orders.slice(0, 5).map(o => `
+                <button onclick="document.getElementById('profileTrackInput').value='${o.id}'; trackOrderInProfile();"
+                    style="margin:4px 6px 4px 0; padding:6px 12px; border-radius:20px; border:1px solid #cbd5e1; background:#f8fafc; font-size:11px; cursor:pointer;">
+                    ${o.id}
+                </button>
+            `).join('');
+        }
+
+        window.trackOrderInProfile = function() {
+            const val = document.getElementById('profileTrackInput').value.trim();
+            const res = document.getElementById('profileTrackResult');
+            if (!val) { res.innerHTML = '<p class="field-error active">Please enter an Order Ref ID.</p>'; return; }
+            const order = findOrderById(val);
+            if (order) {
+                res.innerHTML = `
+                    <div class="order-history-item">
+                        <div class="oh-top"><strong>${order.id}</strong><span class="status-pill">${order.status}</span></div>
+                        <div class="oh-items">
+                            ${order.items.map(i => `${i.title} &times; ${i.qty}`).join('<br>')}
+                            <br><b>Total:</b> LKR ${order.total.toLocaleString()}
+                            <br><b>Shipping to:</b> ${order.address}
+                            <br><small>Placed on ${new Date(order.date).toLocaleString()}</small>
+                        </div>
+                    </div>`;
+            } else {
+                res.innerHTML = `<p class="field-error active">No order found with reference "${val}".</p>`;
+            }
+        };
+
+        renderOrders();
+
+        // Deep-link support: profile.html#orders / #tracking
+        const hash = window.location.hash.replace('#', '');
+        if (hash === 'orders' || hash === 'tracking') showProfileTab(hash);
+      })();
+    </script>
+
+</body>
+</html>
