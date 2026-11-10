@@ -1,121 +1,206 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Zyntech Hardware - Login / Register</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
-    <link rel="stylesheet" href="style.css">
-</head>
-<body class="zyn-auth-body">
-<div class="zyn-auth-wrapper">
-        <div class="zyn-auth-card">
-            <!-- Header Brand -->
-            <div class="auth-brand">
-               <img src="img/zyntechalltp.png" alt="Zyntech Logo" class="auth-logo" width="200">
-            </div>
-
-            <!-- Switch Tabs -->
-            <div class="zyn-tabs">
-                <button class="zyn-tab active" id="tabLoginBtn" type="button" onclick="switchAuthTab('login')">
-                    <i class="fa-solid fa-shield-halved"></i> Login
-                </button>
-                <button class="zyn-tab" id="tabRegBtn" type="button" onclick="switchAuthTab('register')">
-                    <i class="fa-solid fa-user-plus"></i> Register
-                </button>
-            </div>
-
-            <!-- Login Form -->
-            <form class="zyn-form active" id="loginForm" onsubmit="return handleLogin(event)" novalidate>
-                <div class="form-header">
-                    <h3>Welcome Back</h3>
-                    <p>Access your PC Compatibility Engine</p>
-                </div>
-
-                <div class="input-box">
-                    <i class="fa-solid fa-envelope"></i>
-                    <input type="email" id="loginEmail" placeholder="Email Address" required>
-                </div>
-
-                <div class="input-box">
-                    <i class="fa-solid fa-lock"></i>
-                    <input type="password" id="loginPassword" placeholder="Password" required minlength="6">
-                    <i class="fa-solid fa-eye toggle-eye" onclick="togglePassword('loginPassword', this)"></i>
-                </div>
-
-                <div class="auth-options">
-                    <label><input type="checkbox"> Remember me</label>
-                    <a href="#" class="forgot-pass">Forgot Password?</a>
-                </div>
-
-                <p class="error-msg" id="loginError"></p>
-
-                <button type="submit" class="auth-btn zyn-btn">
-                    <span>Login to Account</span> <i class="fa-solid fa-arrow-right"></i>
-                </button>
-
-                <p class="auth-switch">
-                    Don't have an account?
-                    <a href="javascript:void(0)" onclick="switchAuthTab('register')">Register here</a>
-                </p>
-                <a href="index.html" class="auth-back-btn"><i class="fa-solid fa-arrow-left"></i> Back to Store</a>
-            </form>
-
-            <!-- Register Form -->
-            <form class="zyn-form" id="registerForm" onsubmit="return handleRegister(event)" style="display:none;" novalidate>
-                <div class="form-header">
-                    <h3>Create Account</h3>
-                    <p>Join Zyntech PC Builder Hub</p>
-                </div>
-
-                <div class="input-box">
-                    <i class="fa-solid fa-user"></i>
-                    <input type="text" id="regName" placeholder="Full Name" required pattern="[A-Za-z\s'-]{2,50}" title="Letters only, at least 2 characters">
-                </div>
-
-                <div class="input-box">
-                    <i class="fa-solid fa-envelope"></i>
-                    <input type="email" id="regEmail" placeholder="Email Address" required>
-                </div>
-
-                <div class="input-box">
-                    <i class="fa-solid fa-phone"></i>
-                    <input type="tel" id="regPhone" placeholder="Phone Number" required pattern="[0-9+\s-]{7,15}" title="A valid phone number">
-                </div>
-
-                <div class="input-box">
-                    <i class="fa-solid fa-lock"></i>
-                    <input type="password" id="regPassword" placeholder="Password (Min 6 chars)" required minlength="6">
-                    <i class="fa-solid fa-eye toggle-eye" onclick="togglePassword('regPassword', this)"></i>
-                </div>
-
-                <div class="input-box">
-                    <i class="fa-solid fa-location-dot"></i>
-                    <input type="text" id="regAddress" placeholder="Delivery Address" required minlength="5">
-                </div>
-
-                <p class="error-msg" id="regError"></p>
-
-                <button type="submit" class="auth-btn zyn-btn">
-                    <span>Create Account</span> <i class="fa-solid fa-user-check"></i>
-                </button>
-
-                <p class="auth-switch">
-                    Already have an account?
-                    <a href="javascript:void(0)" onclick="switchAuthTab('login')">Login here</a>
-                </p>
-                <a href="index.html" class="auth-back-btn"><i class="fa-solid fa-arrow-left"></i> Back to Store</a>
-            </form>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css"
+    />
+    <link rel="stylesheet" href="css/style.css" />
+  </head>
+  <body class="zyn-auth-body">
+    <div class="zyn-auth-wrapper">
+      <div class="zyn-auth-card">
+        <!-- Header Brand -->
+        <div class="auth-brand">
+          <img
+            src="img/zyntechalltp.png"
+            alt="Zyntech Logo"
+            class="auth-logo"
+            width="200"
+          />
         </div>
+
+        <!-- Switch Tabs -->
+        <div class="zyn-tabs">
+          <button
+            class="zyn-tab active"
+            id="tabLoginBtn"
+            type="button"
+            onclick="switchAuthTab('login')"
+          >
+            <i class="fa-solid fa-shield-halved"></i> Login
+          </button>
+          <button
+            class="zyn-tab"
+            id="tabRegBtn"
+            type="button"
+            onclick="switchAuthTab('register')"
+          >
+            <i class="fa-solid fa-user-plus"></i> Register
+          </button>
+        </div>
+
+        <!-- Login Form -->
+        <form
+          class="zyn-form active"
+          id="loginForm"
+          onsubmit="return handleLogin(event);"
+          novalidate
+        >
+          <div class="form-header">
+            <h3>Welcome Back</h3>
+            <p>Access your PC Compatibility Engine</p>
+          </div>
+
+          <div class="input-box">
+            <i class="fa-solid fa-envelope"></i>
+            <input
+              type="email"
+              id="loginEmail"
+              placeholder="Email Address"
+              required
+            />
+          </div>
+
+          <div class="input-box">
+            <i class="fa-solid fa-lock"></i>
+            <input
+              type="password"
+              id="loginPassword"
+              placeholder="Password"
+              required
+              minlength="6"
+            />
+            <i
+              class="fa-solid fa-eye toggle-eye"
+              onclick="togglePassword('loginPassword', this)"
+            ></i>
+          </div>
+
+          <div class="auth-options">
+            <label><input type="checkbox" /> Remember me</label>
+            <a href="#" class="forgot-pass">Forgot Password?</a>
+          </div>
+
+          <p class="error-msg" id="loginError"></p>
+
+          <button type="submit" class="auth-btn zyn-btn">
+            <span>Login to Account</span>
+            <i class="fa-solid fa-arrow-right"></i>
+          </button>
+
+          <p class="auth-switch">
+            Don't have an account?
+            <a href="javascript:void(0)" onclick="switchAuthTab('register')"
+              >Register here</a
+            >
+          </p>
+          <a href="index.html" class="auth-back-btn"
+            ><i class="fa-solid fa-arrow-left"></i> Back to Store</a
+          >
+        </form>
+
+        <!-- Register Form -->
+        <form
+          class="zyn-form"
+          id="registerForm"
+          onsubmit="return handleRegister(event);"
+          style="display: none"
+          novalidate
+        >
+          <div class="form-header">
+            <h3>Create Account</h3>
+            <p>Join Zyntech PC Builder Hub</p>
+          </div>
+
+          <div class="input-box">
+            <i class="fa-solid fa-user"></i>
+            <input
+              type="text"
+              id="regName"
+              placeholder="Full Name"
+              required
+              pattern="[A-Za-z\s'-]{2,50}"
+              title="Letters only, at least 2 characters"
+            />
+          </div>
+
+          <div class="input-box">
+            <i class="fa-solid fa-envelope"></i>
+            <input
+              type="email"
+              id="regEmail"
+              placeholder="Email Address"
+              required
+            />
+          </div>
+
+          <div class="input-box">
+            <i class="fa-solid fa-phone"></i>
+            <input
+              type="tel"
+              id="regPhone"
+              placeholder="Phone Number"
+              required
+              pattern="[0-9+\s-]{7,15}"
+              title="A valid phone number"
+            />
+          </div>
+
+          <div class="input-box">
+            <i class="fa-solid fa-lock"></i>
+            <input
+              type="password"
+              id="regPassword"
+              placeholder="Password (Min 6 chars)"
+              required
+              minlength="6"
+            />
+            <i
+              class="fa-solid fa-eye toggle-eye"
+              onclick="togglePassword('regPassword', this)"
+            ></i>
+          </div>
+
+          <div class="input-box">
+            <i class="fa-solid fa-location-dot"></i>
+            <input
+              type="text"
+              id="regAddress"
+              placeholder="Delivery Address"
+              required
+              minlength="5"
+            />
+          </div>
+
+          <p class="error-msg" id="regError"></p>
+
+          <button type="submit" class="auth-btn zyn-btn">
+            <span>Create Account</span> <i class="fa-solid fa-user-check"></i>
+          </button>
+
+          <p class="auth-switch">
+            Already have an account?
+            <a href="javascript:void(0)" onclick="switchAuthTab('login')"
+              >Login here</a
+            >
+          </p>
+          <a href="index.html" class="auth-back-btn"
+            ><i class="fa-solid fa-arrow-left"></i> Back to Store</a
+          >
+        </form>
+      </div>
     </div>
 
     <script src="products.js"></script>
     <script src="script.js"></script>
     <script>
-        // If the ?register=1 query is present, land straight on the register tab.
-        const params = new URLSearchParams(window.location.search);
-        if (params.get('register') === '1') switchAuthTab('register');
+      // If the ?register=1 query is present, land straight on the register tab.
+      const params = new URLSearchParams(window.location.search);
+      if (params.get("register") === "1") switchAuthTab("register");
     </script>
-
-</body>
+  </body>
 </html>

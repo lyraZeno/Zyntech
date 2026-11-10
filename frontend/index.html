@@ -1,327 +1,676 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Zyntech Store - Hardware Catalog</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
-    <link rel="stylesheet" href="style.css">
-</head>
-<body class="home-body">
-
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css"
+    />
+    <link rel="stylesheet" href="css/style.css" />
+  </head>
+  <body class="home-body">
     <!-- Fixed & Clean Navbar -->
     <header class="navbar">
-        <div class="logo">
-            <a href="index.html" style="display:flex; align-items:center; gap:0;">
-               <img src="img/zynteck.png" alt="Zyntech Logo" class="logo-img" width="100" height="auto">
-               <img src="img/zyntechnametp.png" alt="Zyntech Logo" class="logo-img" width="110" height="auto">
-            </a>
+      <div class="logo">
+        <a href="index.html" style="display: flex; align-items: center; gap: 0">
+          <img
+            src="img/zynteck.png"
+            alt="Zyntech Logo"
+            class="logo-img"
+            width="100"
+            height="auto"
+          />
+          <img
+            src="img/zyntechnametp.png"
+            alt="Zyntech Logo"
+            class="logo-img"
+            width="110"
+            height="auto"
+          />
+        </a>
+      </div>
+
+      <nav class="nav-links">
+        <a href="index.html" class="active"
+          ><i class="fa-solid fa-house"></i> Home
+        </a>
+
+        <div class="nav-dropdown">
+          <a
+            href="javascript:void(0)"
+            class="dropbtn"
+            onclick="toggleCategoryMenu(event)"
+            ><i class="fa-solid fa-layer-group"></i> Categories
+            <i class="fa-solid fa-chevron-down arrow-icon"></i
+          ></a>
+          <div class="dropdown-menu">
+            <a href="javascript:void(0)" onclick="filterByCategory('all')"
+              ><i class="fa-solid fa-border-all"></i> All Items</a
+            >
+            <a href="javascript:void(0)" onclick="filterByCategory('cpu')"
+              ><i class="fa-solid fa-microchip"></i> Processors (CPU)</a
+            >
+            <a href="javascript:void(0)" onclick="filterByCategory('gpu')"
+              ><i class="fa-solid fa-tv"></i> Graphics Cards (GPU)</a
+            >
+            <a
+              href="javascript:void(0)"
+              onclick="filterByCategory('motherboard')"
+              ><i class="fa-solid fa-server"></i> Motherboards</a
+            >
+            <a href="javascript:void(0)" onclick="filterByCategory('ram')"
+              ><i class="fa-solid fa-memory"></i> RAM Memory</a
+            >
+            <a href="javascript:void(0)" onclick="filterByCategory('psu')"
+              ><i class="fa-solid fa-plug"></i> Power Supplies</a
+            >
+            <a href="javascript:void(0)" onclick="filterByCategory('case')"
+              ><i class="fa-solid fa-cube"></i> PC Cases</a
+            >
+            <a href="javascript:void(0)" onclick="filterByCategory('storage')"
+              ><i class="fa-solid fa-hard-drive"></i> Storage</a
+            >
+          </div>
         </div>
 
-        <nav class="nav-links">
-            <a href="index.html" class="active"><i class="fa-solid fa-house"></i> Home </a>
+        <a href="javascript:void(0)" onclick="toggleTrackModal()"
+          ><i class="fa-solid fa-truck-fast"></i> Track Order</a
+        >
+        <a href="#faq"><i class="fa-solid fa-circle-question"></i> FAQ</a>
+        <a href="#about"><i class="fa-solid fa-info-circle"></i> About us</a>
+        <a href="contact.html"
+          ><i class="fa-solid fa-envelope"></i> Contact us</a
+        >
+      </nav>
 
-            <div class="nav-dropdown">
-                <a href="javascript:void(0)" class="dropbtn" onclick="toggleCategoryMenu(event)"><i class="fa-solid fa-layer-group"></i> Categories <i class="fa-solid fa-chevron-down arrow-icon"></i></a>
-                <div class="dropdown-menu">
-                    <a href="javascript:void(0)" onclick="filterByCategory('all')"><i class="fa-solid fa-border-all"></i> All Items</a>
-                    <a href="javascript:void(0)" onclick="filterByCategory('cpu')"><i class="fa-solid fa-microchip"></i> Processors (CPU)</a>
-                    <a href="javascript:void(0)" onclick="filterByCategory('gpu')"><i class="fa-solid fa-tv"></i> Graphics Cards (GPU)</a>
-                    <a href="javascript:void(0)" onclick="filterByCategory('motherboard')"><i class="fa-solid fa-server"></i> Motherboards</a>
-                    <a href="javascript:void(0)" onclick="filterByCategory('ram')"><i class="fa-solid fa-memory"></i> RAM Memory</a>
-                    <a href="javascript:void(0)" onclick="filterByCategory('psu')"><i class="fa-solid fa-plug"></i> Power Supplies</a>
-                    <a href="javascript:void(0)" onclick="filterByCategory('case')"><i class="fa-solid fa-cube"></i> PC Cases</a>
-                    <a href="javascript:void(0)" onclick="filterByCategory('storage')"><i class="fa-solid fa-hard-drive"></i> Storage</a>
-                </div>
-            </div>
-
-            <a href="javascript:void(0)" onclick="toggleTrackModal()"><i class="fa-solid fa-truck-fast"></i> Track Order</a>
-             <a href="#faq"><i class="fa-solid fa-circle-question"></i> FAQ</a>
-             <a href="#about"><i class="fa-solid fa-info-circle"></i> About us</a>
-             <a href="contact.html"><i class="fa-solid fa-envelope"></i> Contact us</a>
-        </nav>
-
-        <div class="nav-actions">
-            <div class="search-box">
-                <i class="fa-solid fa-magnifying-glass search-icon"></i>
-                <input type="text" id="searchInput" onkeyup="filterBySearch()" placeholder="Search GPU, CPU, RAM...">
-            </div>
-
-            <a href="javascript:void(0)" onclick="toggleCart()" class="icon-btn cart-btn">
-                <i class="fa-solid fa-cart-shopping"></i>
-                <span class="badge" id="cartCount">0</span>
-            </a>
-
-            <!-- Guest state -->
-            <a href="login.html" class="login-btn" id="guestLoginBtn"><i class="fa-solid fa-right-to-bracket"></i> Login</a>
-
-            <!-- Logged-in user menu -->
-            <div class="nav-dropdown user-dropdown" id="userMenu">
-                <button class="user-pill-btn">
-                    <i class="fa-solid fa-circle-user"></i>
-                    <span id="navUserName">Account</span>
-                </button>
-                <div class="dropdown-menu dropdown-menu-right">
-                    <div class="user-info-header">
-                        <strong id="userDisplayName"></strong>
-                        <span class="role-badge">CUSTOMER</span>
-                    </div>
-                    <hr>
-                    <a href="profile.html"><i class="fa-solid fa-user"></i> My Profile</a>
-                    <a href="profile.html#orders"><i class="fa-solid fa-box"></i> Purchase History</a>
-                    <a href="profile.html#tracking"><i class="fa-solid fa-truck-fast"></i> Order Tracking</a>
-                    <a href="cart.html"><i class="fa-solid fa-cart-shopping"></i> Shopping Cart</a>
-                    <hr>
-                    <a href="javascript:void(0)" onclick="logout()" class="logout-link"><i class="fa-solid fa-right-from-bracket"></i> Sign Out</a>
-                </div>
-            </div>
+      <div class="nav-actions">
+        <div class="search-box">
+          <i class="fa-solid fa-magnifying-glass search-icon"></i>
+          <input
+            type="text"
+            id="searchInput"
+            onkeyup="filterBySearch()"
+            placeholder="Search GPU, CPU, RAM..."
+          />
         </div>
+
+        <a
+          href="javascript:void(0)"
+          onclick="toggleCart()"
+          class="icon-btn cart-btn"
+        >
+          <i class="fa-solid fa-cart-shopping"></i>
+          <span class="badge" id="cartCount">0</span>
+        </a>
+
+        <!-- Guest state -->
+        <a href="login.html" class="login-btn" id="guestLoginBtn"
+          ><i class="fa-solid fa-right-to-bracket"></i> Login</a
+        >
+
+        <!-- Logged-in user menu -->
+        <div class="nav-dropdown user-dropdown" id="userMenu">
+          <button class="user-pill-btn">
+            <i class="fa-solid fa-circle-user"></i>
+            <span id="navUserName">Account</span>
+          </button>
+          <div class="dropdown-menu dropdown-menu-right">
+            <div class="user-info-header">
+              <strong id="userDisplayName"></strong>
+              <span class="role-badge">CUSTOMER</span>
+            </div>
+            <hr />
+            <a href="profile.html"
+              ><i class="fa-solid fa-user"></i> My Profile</a
+            >
+            <a href="profile.html#orders"
+              ><i class="fa-solid fa-box"></i> Purchase History</a
+            >
+            <a href="profile.html#tracking"
+              ><i class="fa-solid fa-truck-fast"></i> Order Tracking</a
+            >
+            <a href="cart.html"
+              ><i class="fa-solid fa-cart-shopping"></i> Shopping Cart</a
+            >
+            <hr />
+            <a href="javascript:void(0)" onclick="logout()" class="logout-link"
+              ><i class="fa-solid fa-right-from-bracket"></i> Sign Out</a
+            >
+          </div>
+        </div>
+      </div>
     </header>
 
     <!-- HARDWARE HERO -->
     <section class="hero-section">
-        <div class="hero-wrapper">
-            <div class="hero-text-block">
-                <span class="hero-chip"><i class="fa-solid fa-bolt"></i> Real-Time Engine V2.0</span>
-                <h1>Build Modern PCs <span>Without Compatibility Conflicts</span></h1>
-                <p>Zyntech Engine automatically verifies Socket types, RAM frequencies, and PSU Wattage in real time before checkout.</p>
-                <div class="hero-stats">
-                    <div class="stat-item">
-                        <h3>100%</h3>
-                        <p>Socket Accuracy</p>
-                    </div>
-                    <div class="stat-item">
-                        <h3>Auto</h3>
-                        <p>Wattage Calculator</p>
-                    </div>
-                </div>
+      <div class="hero-wrapper">
+        <div class="hero-text-block">
+          <span class="hero-chip"
+            ><i class="fa-solid fa-bolt"></i> Real-Time Engine V2.0</span
+          >
+          <h1>Build Modern PCs <span>Without Compatibility Conflicts</span></h1>
+          <p>
+            Zyntech Engine automatically verifies Socket types, RAM frequencies,
+            and PSU Wattage in real time before checkout.
+          </p>
+          <div class="hero-stats">
+            <div class="stat-item">
+              <h3>100%</h3>
+              <p>Socket Accuracy</p>
             </div>
-            <div class="hero-visual">
-                <div class="visual-card">
-                    <img src="https://images.unsplash.com/photo-1587202372775-e229f172b9d7?q=80&w=800&auto=format&fit=crop" alt="PC Hardware">
-                </div>
+            <div class="stat-item">
+              <h3>Auto</h3>
+              <p>Wattage Calculator</p>
             </div>
+          </div>
         </div>
+        <div class="hero-visual">
+          <div class="visual-card">
+            <img
+              src="https://images.unsplash.com/photo-1587202372775-e229f172b9d7?q=80&w=800&auto=format&fit=crop"
+              alt="PC Hardware"
+            />
+          </div>
+        </div>
+      </div>
     </section>
 
     <!-- Featured storefront collections -->
     <section class="featured-section" id="newArrivalsSection">
-        <div class="featured-heading">
-            <p class="featured-kicker">Fresh to the store</p>
-            <h2>New Arrivals</h2>
-            <p>Newly landed hardware for your next build. Be the first to get yours.</p>
-        </div>
-        <div class="featured-grid" id="newArrivalsGrid"></div>
+      <div class="featured-heading">
+        <p class="featured-kicker">Fresh to the store</p>
+        <h2>New Arrivals</h2>
+        <p>
+          Newly landed hardware for your next build. Be the first to get yours.
+        </p>
+      </div>
+      <div class="featured-grid" id="newArrivalsGrid"></div>
     </section>
     <section class="featured-section" id="bestSellersSection">
-        <div class="featured-heading">
-            <p class="featured-kicker">Customer favourites</p>
-            <h2>Best Sellers</h2>
-            <p>Popular hardware selected by builders across our store.</p>
-        </div>
-        <div class="featured-grid" id="bestSellersGrid"></div>
+      <div class="featured-heading">
+        <p class="featured-kicker">Customer favourites</p>
+        <h2>Best Sellers</h2>
+        <p>Popular hardware selected by builders across our store.</p>
+      </div>
+      <div class="featured-grid" id="bestSellersGrid"></div>
     </section>
 
-<!-- Products Section -->
+    <!-- Products Section -->
     <section class="products-section" id="products">
-        <div class="category-landing" id="categoryLanding" hidden>
-            <div class="category-landing-header">
-                <div>
-                    <p class="category-kicker">Zyntech Hardware</p>
-                    <h2 id="categoryLandingTitle">Processors</h2>
-                    <p id="categoryLandingDescription">Shop compatible components selected for your next build.</p>
-                </div>
-                <label class="store-location-control">Store Location
-                    <select aria-label="Store location"><option>Colombo</option><option>Kandy</option><option>Galle</option></select>
-                </label>
-            </div>
-            <div class="category-landing-switcher" role="toolbar" aria-label="Choose a hardware category">
-                <button type="button" class="category-switch active" data-category="all" onclick="filterByCategory('all')">All Items</button>
-                <button type="button" class="category-switch" data-category="cpu" onclick="filterByCategory('cpu')">Processors</button>
-                <button type="button" class="category-switch" data-category="gpu" onclick="filterByCategory('gpu')">Graphics Cards</button>
-                <button type="button" class="category-switch" data-category="motherboard" onclick="filterByCategory('motherboard')">Motherboards</button>
-                <button type="button" class="category-switch" data-category="ram" onclick="filterByCategory('ram')">Memory</button>
-                <button type="button" class="category-switch" data-category="psu" onclick="filterByCategory('psu')">Power Supplies</button>
-                <button type="button" class="category-switch" data-category="case" onclick="filterByCategory('case')">Cases</button>
-                <button type="button" class="category-switch" data-category="storage" onclick="filterByCategory('storage')">Storage</button>
-            </div>
-            <div class="category-landing-body">
-                <aside class="category-sidebar" aria-label="Category filters">
-                    <div class="category-sidebar-title">Filter products</div>
-                    <div class="category-filter-group"><strong>Availability</strong><label><input type="checkbox"> In Stock</label><label><input type="checkbox"> Pre-order</label></div>
-                    <div class="category-filter-group"><strong>Price</strong><label><input type="radio" name="category-price" checked> All prices</label><label><input type="radio" name="category-price"> Under LKR 100,000</label><label><input type="radio" name="category-price"> LKR 100,000+</label></div>
-                    <button type="button" class="category-clear-btn" onclick="filterByCategory('all')">All Items</button>
-                </aside>
-                <div class="category-results">
-                    <div class="category-results-header"><span id="categoryResultSummary">Available products</span><span id="categoryLandingCount" class="count-badge">0 Items</span></div>
-                    <div class="product-grid" id="categoryProductGrid"></div>
-                </div>
-            </div>
+      <div class="category-landing" id="categoryLanding" hidden>
+        <div class="category-landing-header">
+          <div>
+            <p class="category-kicker">Zyntech Hardware</p>
+            <h2 id="categoryLandingTitle">Processors</h2>
+            <p id="categoryLandingDescription">
+              Shop compatible components selected for your next build.
+            </p>
+          </div>
+          <label class="store-location-control"
+            >Store Location
+            <select aria-label="Store location">
+              <option>Colombo</option>
+              <option>Kandy</option>
+              <option>Galle</option>
+            </select>
+          </label>
         </div>
-        <div class="section-header">
-            <div>
-                <p class="section-eyebrow">Browse components</p>
-                <h2 class="section-title" id="productGridTitle">Hardware Catalog</h2>
+        <div
+          class="category-landing-switcher"
+          role="toolbar"
+          aria-label="Choose a hardware category"
+        >
+          <button
+            type="button"
+            class="category-switch active"
+            data-category="all"
+            onclick="filterByCategory('all')"
+          >
+            All Items
+          </button>
+          <button
+            type="button"
+            class="category-switch"
+            data-category="cpu"
+            onclick="filterByCategory('cpu')"
+          >
+            Processors
+          </button>
+          <button
+            type="button"
+            class="category-switch"
+            data-category="gpu"
+            onclick="filterByCategory('gpu')"
+          >
+            Graphics Cards
+          </button>
+          <button
+            type="button"
+            class="category-switch"
+            data-category="motherboard"
+            onclick="filterByCategory('motherboard')"
+          >
+            Motherboards
+          </button>
+          <button
+            type="button"
+            class="category-switch"
+            data-category="ram"
+            onclick="filterByCategory('ram')"
+          >
+            Memory
+          </button>
+          <button
+            type="button"
+            class="category-switch"
+            data-category="psu"
+            onclick="filterByCategory('psu')"
+          >
+            Power Supplies
+          </button>
+          <button
+            type="button"
+            class="category-switch"
+            data-category="case"
+            onclick="filterByCategory('case')"
+          >
+            Cases
+          </button>
+          <button
+            type="button"
+            class="category-switch"
+            data-category="storage"
+            onclick="filterByCategory('storage')"
+          >
+            Storage
+          </button>
+        </div>
+        <div class="category-landing-body">
+          <aside class="category-sidebar" aria-label="Category filters">
+            <div class="category-sidebar-title">Filter products</div>
+            <div class="category-filter-group">
+              <strong>Availability</strong
+              ><label><input type="checkbox" /> In Stock</label
+              ><label><input type="checkbox" /> Pre-order</label>
             </div>
-            <span id="productCountBadge" class="count-badge">0 Items Available</span>
+            <div class="category-filter-group">
+              <strong>Price</strong
+              ><label
+                ><input type="radio" name="category-price" checked /> All
+                prices</label
+              ><label
+                ><input type="radio" name="category-price" /> Under LKR
+                100,000</label
+              ><label
+                ><input type="radio" name="category-price" /> LKR
+                100,000+</label
+              >
+            </div>
+            <button
+              type="button"
+              class="category-clear-btn"
+              onclick="filterByCategory('all')"
+            >
+              All Items
+            </button>
+          </aside>
+          <div class="category-results">
+            <div class="category-results-header">
+              <span id="categoryResultSummary">Available products</span
+              ><span id="categoryLandingCount" class="count-badge"
+                >0 Items</span
+              >
+            </div>
+            <div class="product-grid" id="categoryProductGrid"></div>
+          </div>
         </div>
-        <div class="category-filter-bar" role="toolbar" aria-label="Filter hardware by category">
-            <button type="button" class="category-filter active" data-category="all" onclick="filterByCategory('all')">All Items</button>
-            <button type="button" class="category-filter" data-category="cpu" onclick="filterByCategory('cpu')">Processors</button>
-            <button type="button" class="category-filter" data-category="gpu" onclick="filterByCategory('gpu')">Graphics Cards</button>
-            <button type="button" class="category-filter" data-category="motherboard" onclick="filterByCategory('motherboard')">Motherboards</button>
-            <button type="button" class="category-filter" data-category="ram" onclick="filterByCategory('ram')">Memory</button>
-            <button type="button" class="category-filter" data-category="psu" onclick="filterByCategory('psu')">Power Supplies</button>
-            <button type="button" class="category-filter" data-category="case" onclick="filterByCategory('case')">Cases</button>
-            <button type="button" class="category-filter" data-category="storage" onclick="filterByCategory('storage')">Storage</button>
+      </div>
+      <div class="section-header">
+        <div>
+          <p class="section-eyebrow">Browse components</p>
+          <h2 class="section-title" id="productGridTitle">Hardware Catalog</h2>
         </div>
-        <div class="product-grid" id="mainProductGrid"></div>
+        <span id="productCountBadge" class="count-badge"
+          >0 Items Available</span
+        >
+      </div>
+      <div
+        class="category-filter-bar"
+        role="toolbar"
+        aria-label="Filter hardware by category"
+      >
+        <button
+          type="button"
+          class="category-filter active"
+          data-category="all"
+          onclick="filterByCategory('all')"
+        >
+          All Items
+        </button>
+        <button
+          type="button"
+          class="category-filter"
+          data-category="cpu"
+          onclick="filterByCategory('cpu')"
+        >
+          Processors
+        </button>
+        <button
+          type="button"
+          class="category-filter"
+          data-category="gpu"
+          onclick="filterByCategory('gpu')"
+        >
+          Graphics Cards
+        </button>
+        <button
+          type="button"
+          class="category-filter"
+          data-category="motherboard"
+          onclick="filterByCategory('motherboard')"
+        >
+          Motherboards
+        </button>
+        <button
+          type="button"
+          class="category-filter"
+          data-category="ram"
+          onclick="filterByCategory('ram')"
+        >
+          Memory
+        </button>
+        <button
+          type="button"
+          class="category-filter"
+          data-category="psu"
+          onclick="filterByCategory('psu')"
+        >
+          Power Supplies
+        </button>
+        <button
+          type="button"
+          class="category-filter"
+          data-category="case"
+          onclick="filterByCategory('case')"
+        >
+          Cases
+        </button>
+        <button
+          type="button"
+          class="category-filter"
+          data-category="storage"
+          onclick="filterByCategory('storage')"
+        >
+          Storage
+        </button>
+      </div>
+      <div class="product-grid" id="mainProductGrid"></div>
     </section>
 
     <!-- About Us Section -->
     <section class="about-section" id="about">
-        <div class="about-wrapper">
-            <div class="about-text-block">
-                <span class="hero-chip"><i class="fa-solid fa-microchip"></i> Who We Are</span>
-                <h2>About <span>ZYNTECH</span></h2>
-                <p>ZYNTECH started with a simple frustration every PC builder knows too well — ordering parts online and hoping they actually fit together. We built our Real-Time Compatibility Engine to take that guesswork out of the equation, checking socket types, RAM standards, and power requirements before a single order ships. Today, we're a hardware store built by enthusiasts, for enthusiasts, committed to helping first-time builders and veterans alike put together systems that just work.</p>
-                <div class="about-stats">
-                    <div class="about-stat-item">
-                        <i class="fa-solid fa-shield-halved"></i>
-                        <div>
-                            <h4>Verified Compatibility</h4>
-                            <p>Every build checked before checkout</p>
-                        </div>
-                    </div>
-                    <div class="about-stat-item">
-                        <i class="fa-solid fa-truck-fast"></i>
-                        <div>
-                            <h4>Island-Wide Delivery</h4>
-                            <p>Fast, trackable shipping</p>
-                        </div>
-                    </div>
-                    <div class="about-stat-item">
-                        <i class="fa-solid fa-headset"></i>
-                        <div>
-                            <h4>Built By Enthusiasts</h4>
-                            <p>Real hardware knowledge, real support</p>
-                        </div>
-                    </div>
-                </div>
-                <a href="about.html" style="display:inline-block; margin-top:20px; font-size:12px; font-weight:700; color:#0284c7; text-decoration:none;">Read more about us <i class="fa-solid fa-arrow-right"></i></a>
+      <div class="about-wrapper">
+        <div class="about-text-block">
+          <span class="hero-chip"
+            ><i class="fa-solid fa-microchip"></i> Who We Are</span
+          >
+          <h2>About <span>ZYNTECH</span></h2>
+          <p>
+            ZYNTECH started with a simple frustration every PC builder knows too
+            well — ordering parts online and hoping they actually fit together.
+            We built our Real-Time Compatibility Engine to take that guesswork
+            out of the equation, checking socket types, RAM standards, and power
+            requirements before a single order ships. Today, we're a hardware
+            store built by enthusiasts, for enthusiasts, committed to helping
+            first-time builders and veterans alike put together systems that
+            just work.
+          </p>
+          <div class="about-stats">
+            <div class="about-stat-item">
+              <i class="fa-solid fa-shield-halved"></i>
+              <div>
+                <h4>Verified Compatibility</h4>
+                <p>Every build checked before checkout</p>
+              </div>
             </div>
+            <div class="about-stat-item">
+              <i class="fa-solid fa-truck-fast"></i>
+              <div>
+                <h4>Island-Wide Delivery</h4>
+                <p>Fast, trackable shipping</p>
+              </div>
+            </div>
+            <div class="about-stat-item">
+              <i class="fa-solid fa-headset"></i>
+              <div>
+                <h4>Built By Enthusiasts</h4>
+                <p>Real hardware knowledge, real support</p>
+              </div>
+            </div>
+          </div>
+          <a
+            href="about.html"
+            style="
+              display: inline-block;
+              margin-top: 20px;
+              font-size: 12px;
+              font-weight: 700;
+              color: #0284c7;
+              text-decoration: none;
+            "
+            >Read more about us <i class="fa-solid fa-arrow-right"></i
+          ></a>
         </div>
+      </div>
     </section>
 
     <!-- FAQ Section -->
     <section class="about-section" id="faq">
-        <div class="about-wrapper" style="background:#fff; border-color:#e2e8f0;">
-            <div class="about-text-block" style="max-width:100%;">
-                <span class="hero-chip"><i class="fa-solid fa-circle-question"></i> Need Help?</span>
-                <h2>Frequently Asked <span>Questions</span></h2>
-                <div style="margin-top:20px; display:grid; gap:16px;">
-                    <div class="info-row" style="display:flex; gap:12px;">
-                        <i class="fa-solid fa-circle-check" style="color:#0284c7; margin-top:3px;"></i>
-                        <div><h5 style="font-size:13px; color:#0f172a; margin-bottom:2px;">How does the Compatibility Engine work?</h5><p style="font-size:12px; color:#64748b;">Every time you add a part to your cart, we automatically cross-check CPU sockets, RAM types and PSU wattage so incompatible builds are flagged before checkout.</p></div>
-                    </div>
-                    <div class="info-row" style="display:flex; gap:12px;">
-                        <i class="fa-solid fa-circle-check" style="color:#0284c7; margin-top:3px;"></i>
-                        <div><h5 style="font-size:13px; color:#0f172a; margin-bottom:2px;">How do I track my order?</h5><p style="font-size:12px; color:#64748b;">Use "Track Order" in the navbar, or view your full order history from your Profile page once logged in.</p></div>
-                    </div>
-                    <div class="info-row" style="display:flex; gap:12px;">
-                        <i class="fa-solid fa-circle-check" style="color:#0284c7; margin-top:3px;"></i>
-                        <div><h5 style="font-size:13px; color:#0f172a; margin-bottom:2px;">What payment methods are supported?</h5><p style="font-size:12px; color:#64748b;">Cash on Delivery and Online Card / Bank Transfer are both available at checkout.</p></div>
-                    </div>
-                </div>
+      <div
+        class="about-wrapper"
+        style="background: #fff; border-color: #e2e8f0"
+      >
+        <div class="about-text-block" style="max-width: 100%">
+          <span class="hero-chip"
+            ><i class="fa-solid fa-circle-question"></i> Need Help?</span
+          >
+          <h2>Frequently Asked <span>Questions</span></h2>
+          <div style="margin-top: 20px; display: grid; gap: 16px">
+            <div class="info-row" style="display: flex; gap: 12px">
+              <i
+                class="fa-solid fa-circle-check"
+                style="color: #0284c7; margin-top: 3px"
+              ></i>
+              <div>
+                <h5 style="font-size: 13px; color: #0f172a; margin-bottom: 2px">
+                  How does the Compatibility Engine work?
+                </h5>
+                <p style="font-size: 12px; color: #64748b">
+                  Every time you add a part to your cart, we automatically
+                  cross-check CPU sockets, RAM types and PSU wattage so
+                  incompatible builds are flagged before checkout.
+                </p>
+              </div>
             </div>
+            <div class="info-row" style="display: flex; gap: 12px">
+              <i
+                class="fa-solid fa-circle-check"
+                style="color: #0284c7; margin-top: 3px"
+              ></i>
+              <div>
+                <h5 style="font-size: 13px; color: #0f172a; margin-bottom: 2px">
+                  How do I track my order?
+                </h5>
+                <p style="font-size: 12px; color: #64748b">
+                  Use "Track Order" in the navbar, or view your full order
+                  history from your Profile page once logged in.
+                </p>
+              </div>
+            </div>
+            <div class="info-row" style="display: flex; gap: 12px">
+              <i
+                class="fa-solid fa-circle-check"
+                style="color: #0284c7; margin-top: 3px"
+              ></i>
+              <div>
+                <h5 style="font-size: 13px; color: #0f172a; margin-bottom: 2px">
+                  What payment methods are supported?
+                </h5>
+                <p style="font-size: 12px; color: #64748b">
+                  Cash on Delivery and Online Card / Bank Transfer are both
+                  available at checkout.
+                </p>
+              </div>
+            </div>
+          </div>
         </div>
+      </div>
     </section>
+
     <!-- Shared Track Order Modal -->
-    <div class="track-modal-overlay" id="trackModalOverlay" onclick="toggleTrackModal()" aria-hidden="true"></div>
-    <section class="track-modal" id="trackModal" role="dialog" aria-modal="true" aria-labelledby="trackModalTitle" aria-hidden="true">
-        <div class="modal-header">
-            <h3 id="trackModalTitle"><i class="fa-solid fa-truck-fast"></i> Track Shipment</h3>
-            <button class="close-modal-btn" type="button" onclick="toggleTrackModal()" aria-label="Close tracking dialog">&times;</button>
-        </div>
-        <div class="modal-body">
-            <p>Enter your Order ID to track shipment:</p>
-            <form class="track-form" onsubmit="return checkOrderStatus(event)">
-                <label class="sr-only" for="trackInput">Order reference ID</label>
-                <input type="text" id="trackInput" placeholder="e.g. ZYN-8821" autocomplete="off" required>
-                <button type="submit">Track</button>
-            </form>
-            <div id="trackResult" class="track-result" aria-live="polite"></div>
-        </div>
+    <div
+      class="track-modal-overlay"
+      id="trackModalOverlay"
+      onclick="toggleTrackModal()"
+      aria-hidden="true"
+    ></div>
+    <section
+      class="track-modal"
+      id="trackModal"
+      role="dialog"
+      aria-modal="true"
+      aria-labelledby="trackModalTitle"
+      aria-hidden="true"
+    >
+      <div class="modal-header">
+        <h3 id="trackModalTitle">
+          <i class="fa-solid fa-truck-fast"></i> Track Shipment
+        </h3>
+        <button
+          class="close-modal-btn"
+          type="button"
+          onclick="toggleTrackModal()"
+          aria-label="Close tracking dialog"
+        >
+          &times;
+        </button>
+      </div>
+      <div class="modal-body">
+        <p>Enter your Order ID to track shipment:</p>
+        <form class="track-form" onsubmit="return checkOrderStatus(event);">
+          <label class="sr-only" for="trackInput">Order reference ID</label>
+          <input
+            type="text"
+            id="trackInput"
+            placeholder="e.g. ZYN-8821"
+            autocomplete="off"
+            required
+          />
+          <button type="submit">Track</button>
+        </form>
+        <div id="trackResult" class="track-result" aria-live="polite"></div>
+      </div>
     </section>
 
     <!-- Cart Drawer -->
-    <div class="cart-drawer-overlay" id="cartOverlay" onclick="toggleCart()"></div>
+    <div
+      class="cart-drawer-overlay"
+      id="cartOverlay"
+      onclick="toggleCart()"
+    ></div>
     <div class="cart-drawer" id="cartDrawer">
-        <div class="cart-header">
-            <h3><i class="fa-solid fa-cart-shopping"></i> Hardware Build Cart</h3>
-            <button class="close-cart-btn" onclick="toggleCart()">&times;</button>
-        </div>
+      <div class="cart-header">
+        <h3><i class="fa-solid fa-cart-shopping"></i> Hardware Build Cart</h3>
+        <button class="close-cart-btn" onclick="toggleCart()">&times;</button>
+      </div>
 
-        <div id="compatibilityStatusBox" class="compat-box"></div>
-        <div class="cart-items-container" id="cartItemsContainer"></div>
+      <div id="compatibilityStatusBox" class="compat-box"></div>
+      <div class="cart-items-container" id="cartItemsContainer"></div>
 
-        <div class="cart-footer">
-            <div class="cart-total-row">
-                <span>Total Amount:</span>
-                <span class="total-price" id="cartTotal">LKR 0</span>
-            </div>
-            <button class="checkout-btn" id="btnCheckout" onclick="goToCheckout()">Proceed to Checkout <i class="fa-solid fa-arrow-right"></i></button>
+      <div class="cart-footer">
+        <div class="cart-total-row">
+          <span>Total Amount:</span>
+          <span class="total-price" id="cartTotal">LKR 0</span>
         </div>
+        <button class="checkout-btn" id="btnCheckout" onclick="goToCheckout()">
+          Proceed to Checkout <i class="fa-solid fa-arrow-right"></i>
+        </button>
+      </div>
     </div>
+
     <!-- Shared Footer -->
     <footer class="site-footer">
-        <div class="footer-grid">
-            <div class="footer-col">
-                <img src="img/zyntechnametp.png" alt="Zyntech" width="120" style="margin-bottom:12px;">
-                <p>Zyntech is a hardware store built by PC enthusiasts, for enthusiasts — helping you build compatible, reliable systems every time.</p>
-            </div>
-            <div class="footer-col">
-                <h4>Shop</h4>
-                <ul>
-                    <li><a href="index.html#products">All Hardware</a></li>
-                    <li><a href="cart.html">Shopping Cart</a></li>
-                    <li><a href="javascript:void(0)" onclick="toggleTrackModal()">Track Order</a></li>
-                </ul>
-            </div>
-            <div class="footer-col">
-                <h4>Company</h4>
-                <ul>
-                    <li><a href="about.html">About Us</a></li>
-                    <li><a href="contact.html">Contact Us</a></li>
-                    <li><a href="index.html#faq">FAQ</a></li>
-                </ul>
-            </div>
-            <div class="footer-col">
-                <h4>Legal</h4>
-                <ul>
-                    <li><a href="privacy.html">Privacy Policy</a></li>
-                    <li><a href="terms.html">Terms &amp; Conditions</a></li>
-                </ul>
-            </div>
+      <div class="footer-grid">
+        <div class="footer-col">
+          <img
+            src="img/zyntechnametp.png"
+            alt="Zyntech"
+            width="120"
+            style="margin-bottom: 12px"
+          />
+          <p>
+            Zyntech is a hardware store built by PC enthusiasts, for enthusiasts
+            — helping you build compatible, reliable systems every time.
+          </p>
         </div>
-        <div class="footer-bottom">&copy; 2026 Zyntech Hardware. All rights reserved.</div>
+        <div class="footer-col">
+          <h4>Shop</h4>
+          <ul>
+            <li><a href="index.html#products">All Hardware</a></li>
+            <li><a href="cart.html">Shopping Cart</a></li>
+            <li>
+              <a href="javascript:void(0)" onclick="toggleTrackModal()"
+                >Track Order</a
+              >
+            </li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4>Company</h4>
+          <ul>
+            <li><a href="about.html">About Us</a></li>
+            <li><a href="contact.html">Contact Us</a></li>
+            <li><a href="index.html#faq">FAQ</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4>Legal</h4>
+          <ul>
+            <li><a href="privacy.html">Privacy Policy</a></li>
+            <li><a href="terms.html">Terms &amp; Conditions</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        &copy; 2026 Zyntech Hardware. All rights reserved.
+      </div>
     </footer>
 
     <script src="products.js"></script>
     <script src="script.js"></script>
     <script>
-        renderProducts([]);
+      // Initialize storefront
+      if (typeof renderProducts === "function") {
+        renderProducts();
+      }
+      if (typeof renderFeaturedSections === "function") {
         renderFeaturedSections();
+      }
+      if (typeof renderCart === "function") {
         renderCart();
+      }
 
-        // Support cross-page links like index.html?cat=cpu or index.html?search=ryzen
-        const params = new URLSearchParams(window.location.search);
-        if (params.get('cat')) filterByCategory(params.get('cat'));
-        if (params.get('search')) {
-            document.getElementById('searchInput').value = params.get('search');
-            filterBySearch();
-        }
+      // Support cross-page links like index.html?cat=cpu or index.html?search=ryzen
+      const params = new URLSearchParams(window.location.search);
+      if (params.get("cat") && typeof filterByCategory === "function") {
+        filterByCategory(params.get("cat"));
+      }
+      if (params.get("search") && typeof filterBySearch === "function") {
+        document.getElementById("searchInput").value = params.get("search");
+        filterBySearch();
+      }
     </script>
-
-</body>
+  </body>
 </html>
